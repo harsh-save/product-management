@@ -39,7 +39,8 @@ export const ProductList = () => {
             <th scope="col">Product Name</th>
             <th scope="col">Year of Launch</th>
             <th scope="col">Review</th>
-            <th scope="col">Operations</th>
+            <th scope="col">Update</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -50,16 +51,19 @@ export const ProductList = () => {
               <td>{product.year}</td>
               <td>{product.review}</td>
               <td>
-                <span>
-                  <Link to={`/products/${product._id}`}>update</Link>
-                  <button
+                
+                 <Link to={`/products/${product._id}`}><button class="btn btn-outline-primary">Update</button></Link>
+                  
+                
+              </td>
+              <td>
+              <button className="btn btn-outline-danger"
                     onClick={() => {
                       deleteProduct(product._id);
                     }}
                   >
                     Delete
                   </button>
-                </span>
               </td>
             </tr>
           ))}

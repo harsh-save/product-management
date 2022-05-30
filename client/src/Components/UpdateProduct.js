@@ -8,6 +8,10 @@ export const UpdateProduct = () => {
   const [year, setYear] = useState("");
   const [review, setReview] = useState("");
 
+  //Notofication states
+  const[error,setError]= useState('');
+  const[submitted,setSubmitted]= useState(false);
+
   const { id } = useParams();
 
   //FETCH DATA
@@ -26,7 +30,12 @@ export const UpdateProduct = () => {
   }, []);
 
   //UPDATE DETAILS
-  const handleClick = async () => {
+  const handleClick = async (e) => {
+    e.preventDefault();
+    if (name === "" || year===""||review === ""){
+      setError("The Form is missing required information")
+    }
+    else{
     await axios
       .patch(`http://localhost:3001/products/update/${id}`, {
         name: name,
@@ -35,11 +44,17 @@ export const UpdateProduct = () => {
       })
       .then((result) => {
         console.log(result);
+        setSubmitted(true);
       });
+    }
   };
 
   return (
     <div>
+      <br />
+      {error ? <div class="alert alert-danger" role="alert">{error}</div> : null}
+      {submitted ?<div class="alert alert-success" role="alert">Product registered successfully</div> : null}
+      <br />
       <form>
         <div class="mb-3">
           <label for="exampleInputEmail1" class="form-label">
